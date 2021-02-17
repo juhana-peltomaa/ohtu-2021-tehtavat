@@ -17,9 +17,7 @@ class PlayerReaderStub:
 class TestStatistics(unittest.TestCase):
     def setUp(self):
         # annetaan Statistics-luokan oliolle "stub"-luokan olio
-        self.statistics = Statistics(
-            PlayerReaderStub()
-        )
+        self.statistics = Statistics(PlayerReaderStub())
 
     def test_konstuktori_asettaa_pelaajan_oikein(self):
         self.assertAlmostEqual(self.statistics.top_scorers(

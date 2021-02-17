@@ -21,4 +21,6 @@ class TestStatistics(unittest.TestCase):
             PlayerReaderStub()
         )
 
-    # ...
+    def test_konstuktori_asettaa_pelaajan_oikein(self):
+        self.assertAlmostEqual(self.statistics.top_scorers(
+            1), "Gretzky EDM 35 + 89 = 124")

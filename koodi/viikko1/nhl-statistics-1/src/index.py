@@ -3,8 +3,10 @@ from player_reader import PlayerReader
 
 
 def main():
-    io = PlayerReader("https://nhlstatisticsforohtu.herokuapp.com/players.txt")
-    stats = Statistics(io)
+    url = "https://nhlstatisticsforohtu.herokuapp.com/players.txt"
+    reader = PlayerReader(url)
+    
+    stats = Statistics(reader)
 
     philadelphia_flyers_players = stats.team("PHI")
     top_scorers = stats.top_scorers(10)

@@ -1,8 +1,13 @@
 from kauppa import Kauppa
 from kirjanpito import Kirjanpito
+from varasto import Varasto
+from pankki import Pankki
+from viitegeneraattori import Viitegeneraattori
 
 
 def main():
+
+    # luodaan kaikki tarvittavat luokat - Update: nyt default muuttujat konstruktorissa
     kauppa = Kauppa()
 
     # kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:
@@ -22,7 +27,7 @@ def main():
     kauppa.tilimaksu("Arto Vihavainen", "3425-1652")
 
     # kirjanpito
-    for tapahtuma in Kirjanpito.get_instance().tapahtumat:
+    for tapahtuma in kauppa._varasto._kirjanpito.tapahtumat:
         print(tapahtuma)
 
 

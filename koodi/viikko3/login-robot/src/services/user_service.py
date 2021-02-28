@@ -37,4 +37,14 @@ class UserService:
         if not username or not password:
             raise UserInputError("Username and password are required")
 
+        elif len(username) < 3:
+            raise UserInputError("Username is too short")
+
+        elif len(password) < 8:
+            raise UserInputError("Password is too short")
+
+        elif len(password) >= 8 and password.isalpha():
+            raise UserInputError(
+                "Password is long enough, but cannot have only letters")
+
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa

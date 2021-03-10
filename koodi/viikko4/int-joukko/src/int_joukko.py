@@ -14,7 +14,7 @@ class IntJoukko:
         if kasvatuskoko is None:
             self.kasvatuskoko = OLETUSKASVATUS
         elif not isinstance(kapasiteetti, int) or kapasiteetti < 0:
-            raise Exception("kapasiteetti2")  # heitin vaan jotain :D
+            raise Exception("Väärä kapasiteetti")  # heitin vaan jotain :D
         else:
             self.kasvatuskoko = kasvatuskoko
 
@@ -23,16 +23,10 @@ class IntJoukko:
         self.alkioiden_lkm = 0
 
     def kuuluu(self, n):
-        on = 0
-
         for i in range(0, self.alkioiden_lkm):
             if n == self.ljono[i]:
-                on = on + 1
-
-        if on > 0:
-            return True
-        else:
-            return False
+                return True
+        return False
 
     def lisaa(self, n):
         ei_ole = 0
@@ -95,50 +89,46 @@ class IntJoukko:
         return taulu
 
     def laskujen_alustus(self, a, b):
-        x = IntJoukko()
+        lukuJoukko = IntJoukko()
         a_taulu = a.to_int_list()
         b_taulu = b.to_int_list()
 
-        return x, a_taulu, b_taulu
+        return lukuJoukko, a_taulu, b_taulu
 
     @staticmethod
     def yhdiste(a, b):
-        x, a_taulu, b_taulu = a.laskujen_alustus(a, b)
+        lukuJoukko, a_taulu, b_taulu = a.laskujen_alustus(a, b)
 
         for i in range(0, len(a_taulu)):
-            x.lisaa(a_taulu[i])
+            lukuJoukko.lisaa(a_taulu[i])
 
         for i in range(0, len(b_taulu)):
-            x.lisaa(b_taulu[i])
+            lukuJoukko.lisaa(b_taulu[i])
 
-        return x
+        return lukuJoukko
 
     @staticmethod
     def leikkaus(a, b):
-        y = IntJoukko()
-        a_taulu = a.to_int_list()
-        b_taulu = b.to_int_list()
+        lukuJoukko, a_taulu, b_taulu = a.laskujen_alustus(a, b)
 
         for i in range(0, len(a_taulu)):
             for j in range(0, len(b_taulu)):
                 if a_taulu[i] == b_taulu[j]:
-                    y.lisaa(b_taulu[j])
+                    lukuJoukko.lisaa(b_taulu[j])
 
-        return y
+        return lukuJoukko
 
     @staticmethod
     def erotus(a, b):
-        z = IntJoukko()
-        a_taulu = a.to_int_list()
-        b_taulu = b.to_int_list()
+        lukuJoukko, a_taulu, b_taulu = a.laskujen_alustus(a, b)
 
         for i in range(0, len(a_taulu)):
-            z.lisaa(a_taulu[i])
+            lukuJoukko.lisaa(a_taulu[i])
 
         for i in range(0, len(b_taulu)):
-            z.poista(b_taulu[i])
+            lukuJoukko.poista(b_taulu[i])
 
-        return z
+        return lukuJoukko
 
     def __str__(self):
         if self.alkioiden_lkm == 0:

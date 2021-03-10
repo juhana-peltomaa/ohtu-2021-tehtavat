@@ -165,6 +165,7 @@ class TestKauppa(unittest.TestCase):
         kauppa.lisaa_koriin(1)
 
         kauppa.poista_korista(1)
+
         kauppa.lisaa_koriin(2)
 
         kauppa.tilimaksu("pekka", "12345")

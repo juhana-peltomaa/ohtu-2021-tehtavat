@@ -94,11 +94,16 @@ class IntJoukko:
 
         return taulu
 
-    @staticmethod
-    def yhdiste(a, b):
+    def laskujen_alustus(self, a, b):
         x = IntJoukko()
         a_taulu = a.to_int_list()
         b_taulu = b.to_int_list()
+
+        return x, a_taulu, b_taulu
+
+    @staticmethod
+    def yhdiste(a, b):
+        x, a_taulu, b_taulu = a.laskujen_alustus(a, b)
 
         for i in range(0, len(a_taulu)):
             x.lisaa(a_taulu[i])

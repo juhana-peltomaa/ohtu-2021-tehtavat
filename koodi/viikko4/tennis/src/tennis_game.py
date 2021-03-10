@@ -44,7 +44,6 @@ class TennisGame:
         return score
 
     def get_score(self):
-
         if self.player1_score == self.player2_score:
             return self.get_draw_score()
 

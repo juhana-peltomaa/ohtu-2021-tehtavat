@@ -1,4 +1,4 @@
-from tkinter import Tk
+import tkinter as tk
 from kayttoliittyma import Kayttoliittyma
 from sovelluslogiikka import Sovelluslogiikka
 
@@ -6,13 +6,14 @@ from sovelluslogiikka import Sovelluslogiikka
 def main():
     sovellus = Sovelluslogiikka()
 
-    window = Tk()
+    window = tk.Tk()
     window.title("Laskin")
 
     kayttoliittyma = Kayttoliittyma(sovellus, window)
     kayttoliittyma.kaynnista()
 
     window.mainloop()
+
 
 if __name__ == "__main__":
     main()

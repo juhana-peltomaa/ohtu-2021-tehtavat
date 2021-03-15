@@ -9,7 +9,19 @@ def main():
     stats = Statistics(reader)
 
     query = QueryBuilder()
-    matcher = query.build()
+    matcher = (
+        query
+        .oneOf(
+            query.playsIn("PHI")
+            .hasAtLeast(10, "assists")
+            .hasFewerThan(5, "goals")
+            .build(),
+            query.playsIn("EDM")
+            .hasAtLeast(40, "points")
+            .build()
+        )
+        .build()
+    )
 
     for player in stats.matches(matcher):
         print(player)

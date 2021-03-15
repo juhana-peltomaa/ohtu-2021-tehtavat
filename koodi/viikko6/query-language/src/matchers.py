@@ -95,3 +95,7 @@ class QueryBuilder:
     def hasFewerThan(self, value, attr):
         self._kysely.append(HasFewerThan(value, attr))
         return self
+
+    def oneOf(self, ensimmainen, toinen):
+        self._kysely.append(Or(ensimmainen, toinen))
+        return self

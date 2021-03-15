@@ -10,15 +10,17 @@ class Komento(Enum):
 
 
 class Kayttoliittyma:
+
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+        self._edellinen_komento = []
 
         self._komennot = {
             Komento.SUMMA: Summa(self._sovellus, self._lue_syote),
             Komento.EROTUS: Erotus(self._sovellus, self._lue_syote),
             Komento.NOLLAUS: Nollaus(self._sovellus, self._lue_syote),
-            Komento.KUMOA: Kumoa(self._sovellus, self._lue_syote)
+            Komento.KUMOA: Kumoa(self._sovellus, self._edellinen_komento)
         }
 
     def kaynnista(self):
@@ -68,6 +70,8 @@ class Kayttoliittyma:
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
+        self._edellinen_komento.append(komento_olio)
+
         self._kumoa_painike["state"] = constants.NORMAL
 
         if self._sovellus.tulos == 0:
@@ -83,35 +87,59 @@ class Summa:
     def __init__(self, io, metodi):
         self.io = io
         self.metodi = metodi
+        self.edellinen = 0
 
     def suorita(self):
         arvo = int(self.metodi())
+        self.edellinen = self.io.tulos
         self.io.plus(arvo)
+
+    def kumoa(self):
+        self.io.aseta_arvo(self.edellinen)
 
 
 class Erotus:
     def __init__(self, io, metodi):
         self.io = io
         self.metodi = metodi
+        self.edellinen = 0
 
     def suorita(self):
         arvo = int(self.metodi())
+        self.edellinen = self.io.tulos
         self.io.miinus(arvo)
+
+    def kumoa(self):
+        self.io.aseta_arvo(self.edellinen)
 
 
 class Nollaus:
     def __init__(self, io, metodi):
         self.io = io
         self.metodi = metodi
+        self.edellinen = 0
 
     def suorita(self):
+        self.edellinen = self.io.tulos
         self.io.nollaa()
+
+    def kumoa(self):
+        self.io.aseta_arvo(self.edellinen)
 
 
 class Kumoa:
-    def __init__(self, io, metodi):
+    def __init__(self, io, edellinen_komento):
         self.io = io
-        self.metodi = metodi
+        self.komento = edellinen_komento
 
+# tarkistaa, että onko komentoja listassa, muuten ei anna kumota - hiukan kömpelö tapa, mutta toimii
     def suorita(self):
-        return
+        if len(self.komento) > 0:
+            komento = self.komento.pop()
+            komento.kumoa()
+        else:
+            return
+
+# jätin mahdollisuuden laajentaa kumoa toiminnallisuutta ilman, että valittaa nyt virheistä
+    def kumoa(self):
+        pass

@@ -1,1 +1,0 @@
-https://github.com/HJJHeinonen/OHTU-lukuvinkkikirjasto/commit/a2b97a03e0f794d1519ef433a80ec546ebb74eaa
